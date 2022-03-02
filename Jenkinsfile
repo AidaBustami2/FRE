@@ -20,9 +20,9 @@ node {
          * For this example, we're using a Volkswagen-type approach ;-) */
 
         app.inside {
-            h 'docker run -it img1 ./isRunnung.sh'
-            sh 'docker exec -it img1 ./isInstalled.sh'
-            sh 'docker exec -it img1 ./isRunnung.sh'
+            h 'docker run -d --privileged=true  -ti --name AIDA -e container=docker  -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /run   -v /var/www/html:/var/www/html    -p 7070:8899 img1 '
+            sh 'docker exec -it AIDA ./isInstalled.sh'
+            sh 'docker exec -it AIDA ./isRunnung.sh'
             
             
         }
