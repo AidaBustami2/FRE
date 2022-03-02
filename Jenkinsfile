@@ -14,12 +14,11 @@ node {
         app = docker.build("img1" , "./test2")
     }
 
-    stage('Test') {
-            steps {
-                sh './isInstalled.sh'
-            }
-        }
-        
+    stage('Example') {
+                steps { 
+                    echo 'Hello World'
+                }
+         }
     
 
 }
