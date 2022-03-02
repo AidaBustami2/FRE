@@ -20,7 +20,11 @@ node {
          * For this example, we're using a Volkswagen-type approach ;-) */
 
         app.inside {
-            sh './isInstalled.sh'
+            h 'docker run -it img1 ./isRunnung.sh'
+            sh 'docker exec -it img1 ./isInstalled.sh'
+            sh 'docker exec -it img1 ./isRunnung.sh'
+            
+            
         }
     }
     
