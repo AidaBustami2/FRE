@@ -1,0 +1,67 @@
+FROM img1
+USER root
+ENV container docker
+RUN yum -y update; yum clean all
+RUN yum -y install systemd; yum clean all; \
+(cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done); \
+rm -f /lib/systemd/system/multi-user.target.wants/*;\
+rm -f /etc/systemd/system/*.wants/*;\
+rm -f /lib/systemd/system/local-fs.target.wants/*; \
+rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+rm -f /lib/systemd/system/basic.target.wants/*;\
+rm -f /lib/systemd/system/anaconda.target.wants/*;
+COPY .  /root/test
+WORKDIR /root/test
+RUN chmod +x createRepo.sh
+RUN chmod +x  script1.sh
+RUN chmod +x  isRunning.sh
+RUN  chmod +x isInstalled.sh
+ADD script1.sh  /root/test/script1.sh
+ADD isRunning.sh /root/test/isRunning.sh
+ADD isInstalled.sh /root/test/isInstalled.sh
+RUN ./createRepo.sh
+RUN yum -y  --disablerepo=* --enablerepo=test  install httpd
+RUN yum -y  --disablerepo=* --enablerepo=test  install systemd
+RUN  yum -y --disablerepo=* --enablerepo=test  install systemd-sysv
+RUN yum -y --disablerepo=* --enablerepo=test  install vsftpd
+RUN yum -y install --disablerepo=* --enablerepo=test  dbus
+RUN yum -y --disablerepo=* --enablerepo=test  install initscripts
+RUN yum -y --disablerepo=* --enablerepo=test   install net-tools
+RUN yum -y --disablerepo=* --enablerepo=test  install firewalld
+RUN yum -y --disablerepo=* --enablerepo=test  install bash
+RUN yum -y --disablerepo=* --enablerepo=test  install initscripts
+RUN  sed -i   '42s/Listen 80/Listen 8899/' /etc/httpd/conf/httpd.conf
+
+
+
+
+
+
+RUN  chkconfig firewalld  on 
+RUN service  firewalld start 
+RUN chkconfig  httpd on 
+RUN  service  httpd start 
+RUN  firewall-cmd --zone=public --add-port=8899/tcp --permanent 
+RUN  service httpd reload  
+RUN /root/test/isRunning.sh 
+RUN /root/test/isInstalled.sh
+
+RUN ./script1.sh
+VOLUME [ "/sys/fs/cgroup" ]
+CMD  [ "/usr/sbin/init","chkconfig firewalld  on && service  firewalld start && chkconfig  httpd on && service  httpd start && firewall-cmd --zone=public --add-port=8899/tcp --permanent && service httpd reload  && /root/test/isRunning.sh && /root/test/isInstalled.sh"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
