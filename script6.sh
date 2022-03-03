@@ -10,7 +10,7 @@ docker build ./test2 --rm   -t img1
 docker run -d --privileged=true  -ti --name AIDA2 -e container=docker  -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /run   -v /var/www/html:/var/www/html    -p 9977:8899 img1 
 
 
-docker exec -it AIDA2 /root/test/isInstalled.sh
-docker exec -it AIDA2 /root/test/isRunning.sh
+docker exec AIDA2 /root/test/isInstalled.sh
+docker exec  AIDA2 /root/test/isRunning.sh
 
 
