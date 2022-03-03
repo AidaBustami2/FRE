@@ -12,7 +12,9 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("img1" , "./test2")
+         app = docker.build("img1" , "./test2")
+         sh './script6.sh'
+
     }
 
     stage('Test image') {
@@ -21,7 +23,6 @@ node {
 
         app.inside {
             sh 'echo "Tests passed"'
-            sh './test2/script6.sh'
         }
     }
 
