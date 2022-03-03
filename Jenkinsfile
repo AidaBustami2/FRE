@@ -14,13 +14,18 @@ node {
         app = docker.build("img1")
     }
 
-    
+     stage ('Building') {
+      steps {
+        sh '''
+         docker run -d --privileged=true  -ti --name AIDA -e container=docker  -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /run   -v /var/www/html:/var/www/html    -p 7070:8899  img1
+        '''
+      }
+    }
     stage('Test image') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
 
         app.inside {
-           sh  '/root/test2/script6.sh'
            
         }                                                     
     }
