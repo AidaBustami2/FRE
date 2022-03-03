@@ -4,7 +4,7 @@ pipeline {
         stage('Example') {
             steps {
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-                sh './script6.sh'
+                sh '/root/test2/script6.sh'
             }
         }
     }
