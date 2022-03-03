@@ -20,7 +20,8 @@ node {
          * For this example, we're using a Volkswagen-type approach ;-) */
 
         app.inside {
-              
+          sh '/root/test/isInstalled.sh' 
+          sh '/root/test/isRunning.sh'    
         }
     }
     
