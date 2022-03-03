@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("img1" , "/root/test2")
+        app = docker.build("img1")
     }
 
     
@@ -20,8 +20,7 @@ node {
          * For this example, we're using a Volkswagen-type approach ;-) */
 
         app.inside {
-          sh '/root/test/isInstalled.sh' 
-          sh '/root/test/isRunning.sh'    
+            
         }
     }
     
