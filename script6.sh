@@ -13,7 +13,6 @@ then
  docker rmi img1
 fi
 
-docker build /root/test2 --rm   -t img1
 docker run -d --privileged=true   --name AIDA2 -e container=docker  -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /run   -v /var/www/html:/var/www/html    -p 7997:8899 img1
 
 
