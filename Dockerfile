@@ -12,19 +12,16 @@ rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
 rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 COPY .  /root/test
-RUN chmod 777 ./script5.sh
-RUN chmod 777 ./script7.sh
+
 ADD isRunning.sh  /root/test/
 ADD isInstalled.sh /root/test/
 ADD createRepo.sh  /root/test/
-ADD script5.sh /root/test/
-ADD script6.sh /root/test
+
 RUN chmod 777  /root/test/createRepo.sh
 RUN chmod 777  /root/test/isRunning.sh
 RUN  chmod 777  /root/test/isInstalled.sh
 
-RUN chmod 777 /root/test/script5.sh
-RUN chmod 777 /root/tset/script7.sh
+
 WORKDIR /root/test
 
 RUN ./createRepo.sh
