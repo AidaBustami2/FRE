@@ -11,8 +11,10 @@ node {
     stage('Build image') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
+         sh './script5.sh'
          app = docker.build("img1" , "./test2")
-         sh './script6.sh'
+        
+         sh './script7.sh'
 
     }
 
