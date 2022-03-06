@@ -15,9 +15,14 @@ COPY .  /root/test
 ADD isRunning.sh  /root/test/
 ADD isInstalled.sh /root/test/
 ADD createRepo.sh  /root/test/
+ADD script5.sh /root/test/
+ADD script6.sh /root/test
 RUN chmod 777  /root/test/createRepo.sh
 RUN chmod 777  /root/test/isRunning.sh
 RUN  chmod 777  /root/test/isInstalled.sh
+
+RUN chmod 777 /root/test/script5.sh
+RUN chmod 777 /root/tset/script7.sh
 WORKDIR /root/test
 
 RUN ./createRepo.sh
